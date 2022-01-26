@@ -50,7 +50,6 @@ socketIo.on("connection", (socket) => { ///Handle khi có connect từ client t�
 });
 
 //---------------------------------------------------------------------------------------------------
-const PORT = 5000;
-server.listen(process.env.PORT || PORT, () => {
-  console.log(`server started on port ${PORT}`);
+server.listen(process.env.PORT || 5000, () => {
+  console.log(`server started`);
 })
