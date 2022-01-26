@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/LoginDemo');
+mongoose.connect('mongodb+srv://pkh-app:pkh-app@pkh-app.k1zty.mongodb.net/pkh-app?retryWrites=true&w=majority');
 
 const Schema = mongoose.Schema;
 // const ObjectId = Schema.ObjectId;
