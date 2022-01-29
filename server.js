@@ -25,7 +25,9 @@ user.get('/me', Account.getMe);
 const http = require('http');
 const server = http.createServer(app);
 
-const { Server } = require("socket.io")
+// Chat
+const { Server } = require("socket.io");
+const { isObject } = require( 'util' );
 
 const socketIo = new Server(server, {
   cors: {
@@ -48,6 +50,24 @@ socketIo.on("connection", (socket) => { ///Handle khi có connect từ client t�
   })
 
 });
+
+// Video call
+socketIo.on ("connection", (socket) => {
+  socket.emit("me", socket.id)
+
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("callEnd");
+  })
+
+  socket.on("callUser", (data) => {
+    socketIo.to(data.userToCall).emit("callUser", {signal: data.signalData, from: data.from, name: data.name});
+
+  })
+
+  socket.on("answerCall", (data) => {
+    socketIo.to(data.to).emit("callAccepted", data.signal);
+  })
+})
 
 //---------------------------------------------------------------------------------------------------
 server.listen(process.env.PORT || 5000, () => {
