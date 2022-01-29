@@ -49,10 +49,6 @@ socketIo.on("connection", (socket) => { ///Handle khi có connect từ client t�
     socket.to(data.room).emit("receive_message", data);
   })
 
-});
-
-// Video call
-socketIo.on ("connection", (socket) => {
   socket.emit("me", socket.id)
 
   socket.on("disconnect", () => {
@@ -67,7 +63,9 @@ socketIo.on ("connection", (socket) => {
   socket.on("answerCall", (data) => {
     socketIo.to(data.to).emit("callAccepted", data.signal);
   })
-})
+});
+
+
 
 //---------------------------------------------------------------------------------------------------
 server.listen(process.env.PORT || 5000, () => {
